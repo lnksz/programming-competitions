@@ -1,0 +1,62 @@
+= Advent of Code
+:toc:
+
+My solutions to the AoC tasks, with focus on exploration and fun.
+
+== 2021
+
+My first AoC. I want to use these fun little riddles to try out programming
+languages and maybe tooling around them. Stuff which I collect on my to-do
+list, but have missed the opportunity to try them out during the year. I like
+how these mini tasks offer a nice way to mess around new things without
+commiting to a full side-project.
+
+I started off using https://repl.com[repl.com], but then decided to also create
+this repo to gather my notes around the solutions.
+
+=== Day 0.
+
+Trying out https://docs.asciidoctor.org/asciidoctor/latest/[Asciidoctor] as a
+Markdown alternative.
+
+=== Day 1. - Depth Scan (Rust)
+
+After hearing so much about rust, it is time to try it out!
+
+* Reading a file : https://doc.rust-lang.org/book/ch12-02-reading-a-file.html
+* Iterator : https://doc.rust-lang.org/std/iter/trait.Iterator.html
+** `windows()` <3
+
+The syntax sure needs some getting used to. But I am impressed with the
+functional toolbox. And this "iter.collect.iter.collect" schema does look
+promissing! I started to think, how general this sliding window use-case is,
+and how I would implement it in C. Then discovered `windows()` in the docs...
+Neat!
+
+The pattern matching and the borrow-checker will need some more learning...
+
+.Building and running the solution
+[source,bash]
+----
+# Sample data-set part-1
+cargo run sample.txt a
+# Input data-set part-2
+cargo run input.txt b
+----
+
+=== Day 2. - Keyword navigation (awk)
+
+I've been using awk to print some selected columns from files... But knew it
+could do more!
+
+* `-v=0` flag is redundant, because variables are initialized to 0
+
+I think I will use awk more in my day-to-day work. Pretty awesome to have match
+based actions!
+
+.Running the solution
+[source,bash]
+----
+./aoc-2021-02.sh sample a
+./aoc-2021-02.sh input b
+----
