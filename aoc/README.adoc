@@ -60,3 +60,33 @@ based actions!
 ./aoc-2021-02.sh sample a
 ./aoc-2021-02.sh input b
 ----
+
+=== Day 3. - Conan Pakage Manager, std::fmt
+
+Managing dependencies for C/C++ can be a pain. I heard much about vcpkg and conan,
+but never got the time to play around with them.
+
+Also wanted to give a try to C++20's fmt feature. But had to see that GCC doesn't
+yet support it.
+
+So, why not try to include libfmt via a package manager and CMake?
+
+On first look vcpkg had a lot less packages than conan, so I went with conan.
+
+Boy, the configuration turned out to be a surprise... Do I write `cf.py` or `conanfile.txt`??
+But the addition to CMake was quite nice!
+
+So now I can build the programm with the following dance moves:
+
+[source,bash]
+----
+# Prev: profile setup...
+$ conan install .
+# This generates conanbuildinfo.cmake among others
+# This on Arch Linux misses binary, because of bleeding edge compiler...
+$ conan install --build=fmt .
+# Yey! That was easy, and the CLI gave good suggestions!
+$ mkdir tmp && cd tmp
+$ cmake .. && make -j
+$ ./bin/aoc-2021-03 a ../input
+----
