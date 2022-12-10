@@ -90,3 +90,17 @@ $ mkdir tmp && cd tmp
 $ cmake .. && make -j
 $ ./bin/aoc-2021-03 a ../input
 ----
+
+
+== 2022
+
+=== Day 1. Calorie Counting
+
+Let's play some more with AWK! This time as a script in its file with shebang.
+There is an AWK syntax file for VS: https://github.com/JohnNilsson/awk-sublime
+
+We can call it after downloading the input into `input-a`:
+[source,bash]
+----
+./calories.awk <input-a
+----
