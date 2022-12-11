@@ -104,3 +104,14 @@ We can call it after downloading the input into `input-a`:
 ----
 ./calories.awk <input-a
 ----
+
+Part B, was to find the sum of the top 3 calorie packages. I thought about adding
+the top 3 extension with variables to AWK... but yuck.
+
+Then C++'s priority queue came to mind, but then why leave the shell?
+By stripping down the original solution and using, `sort` and `head` as well:
+
+[source,bash]
+----
+./calories-parsums.awk <input-a | sort -nr | head -n 3 | awk '{total += $1}; END {print total}'
+----
