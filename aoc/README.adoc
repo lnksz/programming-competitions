@@ -120,3 +120,32 @@ By stripping down the original solution and using, `sort` and `head` as well:
 
 Kept going with AWK... Because of the rotating value/enumeration it was quite a meditative
 typing aout of the 9 awk lines which create the solution as kind of a look-up matrix.
+
+=== Day 3. Rucksack
+
+Let's take this as a challange! Even thought not line oriented in itself anymore,
+so how would I solve it in the terminal?
+
+Wow, I leant about `paste` which is a file-based zip :)
+
+`grep -o .` nicely splits up the string into new-line separated letters.
+
+A look-up table in awk is fancy for doing the prio enumeration
+
+[source,bash]
+----
+# split the input lines
+./t1.awk <input >first 2>second
+# Find common letter in first and second part
+./t1.sh >items
+# numeration and sum
+./t1-translate.awk <items
+----
+
+I made a mistake first in `t1.sh` where grep would return multiple matches,
+so `item` ended up having more entries than input lines...
+Splitting the input into lines and using `-m 1` flag remedy this.
+
+Still the core `t1.sh` part has a miserable complexity.
+I will do a nicer solution later in some other programming language.
+Still this was a nice challange for the terminal.
