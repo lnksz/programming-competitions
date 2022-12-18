@@ -115,3 +115,8 @@ By stripping down the original solution and using, `sort` and `head` as well:
 ----
 ./calories-parsums.awk <input-a | sort -nr | head -n 3 | awk '{total += $1}; END {print total}'
 ----
+
+=== Day 2. Rock Paper Siccors
+
+Kept going with AWK... Because of the rotating value/enumeration it was quite a meditative
+typing aout of the 9 awk lines which create the solution as kind of a look-up matrix.
