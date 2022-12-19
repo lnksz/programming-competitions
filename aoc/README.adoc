@@ -123,6 +123,7 @@ typing aout of the 9 awk lines which create the solution as kind of a look-up ma
 
 === Day 3. Rucksack
 
+== More Shell
 Let's take this as a challange! Even thought not line oriented in itself anymore,
 so how would I solve it in the terminal?
 
@@ -149,3 +150,16 @@ Splitting the input into lines and using `-m 1` flag remedy this.
 Still the core `t1.sh` part has a miserable complexity.
 I will do a nicer solution later in some other programming language.
 Still this was a nice challange for the terminal.
+
+== Python makes me happy
+
+First the `Counter` class came into my mind,
+but when searched for aa method to calculate 
+the intersection of Counters,
+I came accross the feature of the
+`set`, which fantastically supports
+intersection via `&`.
+This is so intuitive! I used such notation in
+school when we studied set theory.
+Python feels even more "batteries included"
+whe switching directly from the Shell.
