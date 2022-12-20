@@ -164,6 +164,9 @@ school when we studied set theory.
 Python feels even more "batteries included"
 whe switching directly from the Shell.
 
+Also, this was the first task solved entirely on my phone!
+Not a great experiance, but possible. (Pydroid 3)
+
 ==== C++ for fun?
 
 I wanted to solve this with bitmaps for fun,
@@ -176,3 +179,5 @@ It would be interesting to benchmark,
 consume the whole input at once, create more efficient
 mappers etc... but I want to continue with the
 other tasks as well.
+
+This I also did on my phone (C4droid).
