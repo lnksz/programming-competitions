@@ -181,3 +181,19 @@ mappers etc... but I want to continue with the
 other tasks as well.
 
 This I also did on my phone (C4droid).
+
+==== Part 2. Sliding Window
+
+Since during last year's AoC I have found `chunks` in the rust STL, I always
+look for this helper in higher level languages. E.g. this already came in handy
+when I reviewed some C# code (for me not a well known language).
+
+So I was suprised that I couldn't find something similar in Python's `itertools`.
+But when scrolled far enough in the [documentation](https://docs.python.org/3/library/itertools.html#itertools-recipes)
+I could find `more-itertools`, which have the comfortable helpers. (Immediate and iterator based both.)
+
+So there are quite a few similar helpers:
+- `(i)chunked` list ot iterable
+- `sliced` (can tolerate incomplete windows), returns slices (which were new for me)
+- `batched` (tolerates incomplete windows) splits with lists
+- `grouper` (has more advanced features, e.g. fillvalue), returns tuples
