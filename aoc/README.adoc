@@ -123,7 +123,7 @@ typing aout of the 9 awk lines which create the solution as kind of a look-up ma
 
 === Day 3. Rucksack
 
-== More Shell
+==== More Shell
 Let's take this as a challange! Even thought not line oriented in itself anymore,
 so how would I solve it in the terminal?
 
@@ -151,7 +151,7 @@ Still the core `t1.sh` part has a miserable complexity.
 I will do a nicer solution later in some other programming language.
 Still this was a nice challange for the terminal.
 
-== Python makes me happy
+==== Python makes me happy
 
 First the `Counter` class came into my mind,
 but when searched for aa method to calculate 
@@ -163,3 +163,16 @@ This is so intuitive! I used such notation in
 school when we studied set theory.
 Python feels even more "batteries included"
 whe switching directly from the Shell.
+
+==== C++ for fun?
+
+I wanted to solve this with bitmaps for fun,
+and because the letters (56) fit into a u64.
+The "fun" had a hickup when `1 << i` resulted
+in huge 0xFFF...000 values.
+After annotating the type with `1llu` everything
+fell into place and the fun came back.
+It would be interesting to benchmark,
+consume the whole input at once, create more efficient
+mappers etc... but I want to continue with the
+other tasks as well.
