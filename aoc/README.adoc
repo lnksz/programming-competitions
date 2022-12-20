@@ -182,8 +182,9 @@ other tasks as well.
 
 This I also did on my phone (C4droid).
 
-==== Part 2. Sliding Window
+==== Part 2. Here we chunk again
 
+**Python**
 Since during last year's AoC I have found `chunks` in the rust STL, I always
 look for this helper in higher level languages. E.g. this already came in handy
 when I reviewed some C# code (for me not a well known language).
@@ -197,3 +198,18 @@ So there are quite a few similar helpers:
 - `sliced` (can tolerate incomplete windows), returns slices (which were new for me)
 - `batched` (tolerates incomplete windows) splits with lists
 - `grouper` (has more advanced features, e.g. fillvalue), returns tuples
+
+**C++**
+I want to have chunks in this language...
+As of C++23 it looks like [ranges.chunk](https://en.cppreference.com/w/cpp/ranges/chunk_view)
+brings this to the language! Now I just need a compiler which already implemented this.
+On Arch GCC 12.2.0 didn't have this yet, but trunk should as of [compiler explorer](https://godbolt.org/z/nMn4jvTP6)
+
+So this was an interesting experience... Ranges totally got me enthusiastic about
+this "modern" C++ I have heard but used so much about.
+Still it feels like ranges really needs C++23 to shine. E.g. it would make sense
+to have accumulate/reduce in the ranges context. But also nice work that the
+implementation can always fall back to the iterators, which are used in `<algorithm>`
+and `<numeric>`.
+
+https://godbolt.org/z/szEMdzhMG
