@@ -32,12 +32,12 @@ int main()
 	using namespace std;
 	int sum = 0;
 	ifstream inp;
-	inp.open("input.txt");
+	inp.open("input");
 	for (std::string line; std::getline(inp, line);)
 	{
 		const auto half = line.size() / 2;
 		const auto cstr = line.c_str();
-		const auto e1 = enc(csrt, half);
+		const auto e1 = enc(cstr, half);
 		const auto e2 = enc(cstr + half, half);
 		const uint64_t bf = e1 & e2;
 		sum += prio(bf);
