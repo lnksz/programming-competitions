@@ -90,3 +90,126 @@ $ mkdir tmp && cd tmp
 $ cmake .. && make -j
 $ ./bin/aoc-2021-03 a ../input
 ----
+
+
+== 2022
+
+=== Day 1. Calorie Counting
+
+Let's play some more with AWK! This time as a script in its file with shebang.
+There is an AWK syntax file for VS: https://github.com/JohnNilsson/awk-sublime
+
+We can call it after downloading the input into `input-a`:
+[source,bash]
+----
+./calories.awk <input-a
+----
+
+Part B, was to find the sum of the top 3 calorie packages. I thought about adding
+the top 3 extension with variables to AWK... but yuck.
+
+Then C++'s priority queue came to mind, but then why leave the shell?
+By stripping down the original solution and using, `sort` and `head` as well:
+
+[source,bash]
+----
+./calories-parsums.awk <input-a | sort -nr | head -n 3 | awk '{total += $1}; END {print total}'
+----
+
+=== Day 2. Rock Paper Siccors
+
+Kept going with AWK... Because of the rotating value/enumeration it was quite a meditative
+typing aout of the 9 awk lines which create the solution as kind of a look-up matrix.
+
+=== Day 3. Rucksack
+
+==== More Shell
+Let's take this as a challange! Even thought not line oriented in itself anymore,
+so how would I solve it in the terminal?
+
+Wow, I leant about `paste` which is a file-based zip :)
+
+`grep -o .` nicely splits up the string into new-line separated letters.
+
+A look-up table in awk is fancy for doing the prio enumeration
+
+[source,bash]
+----
+# split the input lines
+./t1.awk <input >first 2>second
+# Find common letter in first and second part
+./t1.sh >items
+# numeration and sum
+./t1-translate.awk <items
+----
+
+I made a mistake first in `t1.sh` where grep would return multiple matches,
+so `item` ended up having more entries than input lines...
+Splitting the input into lines and using `-m 1` flag remedy this.
+
+Still the core `t1.sh` part has a miserable complexity.
+I will do a nicer solution later in some other programming language.
+Still this was a nice challange for the terminal.
+
+==== Python makes me happy
+
+First the `Counter` class came into my mind,
+but when searched for aa method to calculate 
+the intersection of Counters,
+I came accross the feature of the
+`set`, which fantastically supports
+intersection via `&`.
+This is so intuitive! I used such notation in
+school when we studied set theory.
+Python feels even more "batteries included"
+whe switching directly from the Shell.
+
+Also, this was the first task solved entirely on my phone!
+Not a great experiance, but possible. (Pydroid 3)
+
+==== C++ for fun?
+
+I wanted to solve this with bitmaps for fun,
+and because the letters (56) fit into a u64.
+The "fun" had a hickup when `1 << i` resulted
+in huge 0xFFF...000 values.
+After annotating the type with `1llu` everything
+fell into place and the fun came back.
+It would be interesting to benchmark,
+consume the whole input at once, create more efficient
+mappers etc... but I want to continue with the
+other tasks as well.
+
+This I also did on my phone (C4droid).
+
+==== Part 2. Here we chunk again
+
+**Python**
+Since during last year's AoC I have found `chunks` in the rust STL, I always
+look for this helper in higher level languages. E.g. this already came in handy
+when I reviewed some C# code (for me not a well known language).
+
+So I was suprised that I couldn't find something similar in Python's `itertools`.
+But when scrolled far enough in the [documentation](https://docs.python.org/3/library/itertools.html#itertools-recipes)
+I could find `more-itertools`, which have the comfortable helpers. (Immediate and iterator based both.)
+
+So there are quite a few similar helpers:
+- `(i)chunked` list ot iterable
+- `sliced` (can tolerate incomplete windows), returns slices (which were new for me)
+- `batched` (tolerates incomplete windows) splits with lists
+- `grouper` (has more advanced features, e.g. fillvalue), returns tuples
+
+**C++**
+I want to have chunks in this language...
+As of C++23 it looks like [ranges.chunk](https://en.cppreference.com/w/cpp/ranges/chunk_view)
+brings this to the language! Now I just need a compiler which already implemented this.
+On Arch GCC 12.2.0 didn't have this yet, but trunk should as of [compiler explorer](https://godbolt.org/z/nMn4jvTP6)
+
+So this was an interesting experience... Ranges totally got me enthusiastic about
+this "modern" C++ I have heard but used so much about.
+Still it feels like ranges really needs C++23 to shine. E.g. it would make sense
+to have accumulate/reduce in the ranges context. But also nice work that the
+implementation can always fall back to the iterators, which are used in `<algorithm>`
+and `<numeric>`.
+
+https://godbolt.org/z/szEMdzhMG
