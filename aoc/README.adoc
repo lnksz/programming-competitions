@@ -248,3 +248,8 @@ expected understood the description so that the result should be 88 instead of 8
 But after trying out the result from the "overlapping" solution, I see it wasn't
 meant like that :-). Strange, I thought I could solve that with regex as well, but
 with look-ahead and look-behind I couldn't get it to work.
+
+=== Day 2.
+
+After setting up Bun and warmin up with JS regex methods, and with the nice
+`strtoul` kind of behaviour of `parseInt` this was rather straight forward.
