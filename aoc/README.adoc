@@ -213,3 +213,20 @@ implementation can always fall back to the iterators, which are used in `<algori
 and `<numeric>`.
 
 https://godbolt.org/z/szEMdzhMG
+
+== 2023
+
+=== Day 1.
+
+I happen to find myself on the front-end after nearly 10 years again
+and a lot has changed there. So let's use some of the AoC tasks to 
+refresh/learn some TS/JS!
+E.g. I was used to the "require()" based imports and had to look up
+why sometimes I still see that and why not just use imports.
+Now I've read up on CJS vs ESM... yup back to JS-land...
+Also I wanted to try out bun for a while, so this is also a great
+excuse to do so :)
+
+Bun feels really, really fast, and the error descriptions are nearly as good as
+the ones I am used to with Python.
+But also, e.g. the `file.readLines()` from node is of course not awailable...
