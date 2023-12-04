@@ -154,7 +154,7 @@ Still this was a nice challange for the terminal.
 ==== Python makes me happy
 
 First the `Counter` class came into my mind,
-but when searched for aa method to calculate 
+but when searched for aa method to calculate
 the intersection of Counters,
 I came accross the feature of the
 `set`, which fantastically supports
@@ -219,7 +219,7 @@ https://godbolt.org/z/szEMdzhMG
 === Day 1.
 
 I happen to find myself on the front-end after nearly 10 years again
-and a lot has changed there. So let's use some of the AoC tasks to 
+and a lot has changed there. So let's use some of the AoC tasks to
 refresh/learn some TS/JS!
 E.g. I was used to the "require()" based imports and had to look up
 why sometimes I still see that and why not just use imports.
@@ -230,3 +230,21 @@ excuse to do so :)
 Bun feels really, really fast, and the error descriptions are nearly as good as
 the ones I am used to with Python.
 But also, e.g. the `file.readLines()` from node is of course not awailable...
+
+[source,bash]
+----
+bun run main.ts
+----
+
+And there is even a nice, built-in watch mode which works for simple files as well!
+
+[source,bash]
+----
+bun --watch run main.ts
+----
+
+At the second part the overlapping case like `eightwo` had me thinking, because I
+expected understood the description so that the result should be 88 instead of 82.
+But after trying out the result from the "overlapping" solution, I see it wasn't
+meant like that :-). Strange, I thought I could solve that with regex as well, but
+with look-ahead and look-behind I couldn't get it to work.
