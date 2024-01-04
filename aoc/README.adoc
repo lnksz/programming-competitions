@@ -253,3 +253,15 @@ with look-ahead and look-behind I couldn't get it to work.
 
 After setting up Bun and warmin up with JS regex methods, and with the nice
 `strtoul` kind of behaviour of `parseInt` this was rather straight forward.
+
+=== Day 3.
+
+I was thinking about whether to look around the numbers or the stars. Looking around
+the stars seemed cleverer, but I didn't want to deal with the possible double counting,
+and reconstructing numbers on the same line from e.g. a middle digit. So searched around
+the numbers.
+
+When looking at the methods of the `Array` class, I was suprised to see `copyWithin`,
+but the name is a bit missleading, as it works more like `memmove` than `memcpy`.
+So I ended up duplicating the first and last rows with `unshift` and `push`.
+`matchAll` with the match meta-info was the main tool then for the solution for part B.
