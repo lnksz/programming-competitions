@@ -216,6 +216,11 @@ https://godbolt.org/z/szEMdzhMG
 
 == 2023
 
+This year I dived into JS/TS with bun. Next to the language and the bun, I was
+very impressed with the mobile version of repl.it! It made it possible to try out
+bun on the go, and compared to last year's browser experience, the app (with
+the integrated keyboard extension line) was a real enabler!
+
 === Day 1.
 
 I happen to find myself on the front-end after nearly 10 years again
@@ -279,3 +284,34 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 `for (const [card, wins] of winMap)` was also new. a bit of a mouthful, but ok.
 
 The B part's solution is ugly, would be nice to revisit it for a clean-up.
+
+=== Day 5.
+
+From this day on I started to reuse the same repl.it project, so I don't need to
+bootstrap each time from the template.
+
+I started using bun's test runner with a modified `.replit` `run` command:
+```
+run = bun test ./d5.test.ts
+```
+
+This is great, because like this I can just hit the "run/play" button in the app,
+and have the tests run. Then only need to modify the test to run when mofing to a new day.
+
+The solution itself wasn't qreat, and part B actually failed to scale with the
+brute force solution.
+
+I was thinking about an inverse (from soil to seed) solution, but it didn't click.
+So what I did for part B was to use the hunch that the interesting intervals are
+between breaks in the functions, and that the function segments are monoton increasing.
+So to find minimums, I just needed to look around the breaks. Still, the "around"
+was surprising, because without a +-1 around the breaks, the minimum wasn't reached.
+
+Here also some cleanup would be nice, esp. using recursion instead of repetition.
+
+Takeaways:
+- Custom sorters
+- No built-in binary search???
+- `flat()` is pretty useful
+- Would be nice to have a debugger in repl.it app. Now `console.log` was my friend.
+- First generator functions in JS
