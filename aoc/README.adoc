@@ -265,3 +265,17 @@ When looking at the methods of the `Array` class, I was suprised to see `copyWit
 but the name is a bit missleading, as it works more like `memmove` than `memcpy`.
 So I ended up duplicating the first and last rows with `unshift` and `push`.
 `matchAll` with the match meta-info was the main tool then for the solution for part B.
+
+=== Day 4.
+
+Quite straight forward. Now I used JS's `Set` and `Map` for the first time.
+Map was a surprise, because of the `{}` Object. But I can see how Map could be useful
+for really using only a map, and not be surprised by the prototype methods of Object.
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#objects_vs._maps
+
+`.map(Number)` was a nice surprise, I stumbled upon it and cannot understand why I didn't thought about it before.
+
+`for (const [card, wins] of winMap)` was also new. a bit of a mouthful, but ok.
+
+The B part's solution is ugly, would be nice to revisit it for a clean-up.
