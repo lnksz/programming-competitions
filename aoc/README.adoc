@@ -1,4 +1,5 @@
 = Advent of Code
+:stem: asciimath
 :toc:
 
 My solutions to the AoC tasks, with focus on exploration and fun.
@@ -291,9 +292,11 @@ From this day on I started to reuse the same repl.it project, so I don't need to
 bootstrap each time from the template.
 
 I started using bun's test runner with a modified `.replit` `run` command:
-```
+
+[source,ini]
+----
 run = bun test ./d5.test.ts
-```
+----
 
 This is great, because like this I can just hit the "run/play" button in the app,
 and have the tests run. Then only need to modify the test to run when mofing to a new day.
@@ -315,3 +318,74 @@ Takeaways:
 - `flat()` is pretty useful
 - Would be nice to have a debugger in repl.it app. Now `console.log` was my friend.
 - First generator functions in JS
+
+=== Day 6.
+
+This was by far my favorite day!
+I've always liked functional analysis, and this was a nice remider that I once
+studied math... :)
+
+So, if T is the duration of the race, and `a` is the duration of "charging", then
+"a" also describes the slope of the distance function.
+So all strategy can be described as:
+
+[stem]
+++++
+S(t) = 0, for t < a
+S(t) = at - a^2, for a <= t < T
+++++
+
+For a given T, the different strategies are a function of the `a` parameter.
+
+[stem]
+++++
+S(a) = -a^2 + aT
+++++
+
+Which is an inverted, and shifted parabola.
+The maximum lies at where the derivative is 0, so at `a = T/2`.
+
+[stem]
+++++
+S'(a) = -2a + T = 0
+a = T/2
+++++
+
+So the winning strategies can be summed up as the range around the maximum which,
+is greater than the previous record.
+
+[stem]
+++++
+S(a) = -a^2 + aT > S_{record}
+a^2 - aT + S_{record} = 0
+a = \frac{T \pm \sqrt{T^2 - 4S_{record}}}{2}
+++++
+
+----
+distance
+ ▲
+ │                  /
+ │_________________/
+ │       Sa       /|
+ │               / |
+ │              /  |
+ │             /   |
+ │     a      /    |
+ │===========x─────|─────▶ time
+ │          /      T
+ │         /
+ │        /
+ │       /
+ │      /
+ │     /
+ │    /
+ │   /
+ │  /
+ │ /
+ │/
+ -a^2
+----
+
+It was a special joy, to see my brother visualize the task with Godot :)
+
+I also started to factor out utils into lib.ts.
