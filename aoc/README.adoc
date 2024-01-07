@@ -349,6 +349,7 @@ So all strategy can be described as:
 [stem]
 ++++
 S(t) = 0, for t < a
+\
 S(t) = at - a^2, for a <= t < T
 ++++
 
@@ -365,6 +366,7 @@ The maximum lies at where the derivative is 0, so at `a = T/2`.
 [stem]
 ++++
 S'(a) = -2a + T = 0
+\
 a = T/2
 ++++
 
@@ -373,8 +375,8 @@ is greater than the previous record.
 
 [stem]
 ++++
-S(a) = -a^2 + aT > S_{record}
-a^2 - aT + S_{record} = 0
+S(a) = -a^2 + aT > S_{record}\
+a^2 - aT + S_{record} = 0\
 a = \frac{T \pm \sqrt{T^2 - 4S_{record}}}{2}
 ++++
 
