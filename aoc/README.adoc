@@ -239,7 +239,7 @@ very impressed with the mobile version of repl.it! It made it possible to try ou
 bun on the go, and compared to last year's browser experience, the app (with
 the integrated keyboard extension line) was a real enabler!
 
-=== Day 1.
+=== Day 1. Finding numbers
 
 I happen to find myself on the front-end after nearly 10 years again
 and a lot has changed there. So let's use some of the AoC tasks to
@@ -272,12 +272,12 @@ But after trying out the result from the "overlapping" solution, I see it wasn't
 meant like that :-). Strange, I thought I could solve that with regex as well, but
 with look-ahead and look-behind I couldn't get it to work.
 
-=== Day 2.
+=== Day 2. Colorful Cardgame
 
 After setting up Bun and warmin up with JS regex methods, and with the nice
 `strtoul` kind of behaviour of `parseInt` this was rather straight forward.
 
-=== Day 3.
+=== Day 3. Gear Ratios
 
 I was thinking about whether to look around the numbers or the stars. Looking around
 the stars seemed cleverer, but I didn't want to deal with the possible double counting,
@@ -289,7 +289,7 @@ but the name is a bit missleading, as it works more like `memmove` than `memcpy`
 So I ended up duplicating the first and last rows with `unshift` and `push`.
 `matchAll` with the match meta-info was the main tool then for the solution for part B.
 
-=== Day 4.
+=== Day 4. Scratchcards
 
 Quite straight forward. Now I used JS's `Set` and `Map` for the first time.
 Map was a surprise, because of the `{}` Object. But I can see how Map could be useful
@@ -303,7 +303,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 The B part's solution is ugly, would be nice to revisit it for a clean-up.
 
-=== Day 5.
+=== Day 5. Seed to Location
 
 From this day on I started to reuse the same repl.it project, so I don't need to
 bootstrap each time from the template.
@@ -336,7 +336,7 @@ Takeaways:
 - Would be nice to have a debugger in repl.it app. Now `console.log` was my friend.
 - First generator functions in JS
 
-=== Day 6.
+=== Day 6. Boat Race Optimization
 
 This was by far my favorite day!
 I've always liked functional analysis, and this was a nice remider that I once
