@@ -4,6 +4,23 @@
 
 My solutions to the AoC tasks, with focus on exploration and fun.
 
+[cols="1,1,1"]
+|===
+|Year | Solved Days | Keywords
+
+|2021
+|3
+|rust, awk, conan, fmt, asciidoctor
+
+|2022
+|7.5
+|awk, unix commands, python
+
+|2023
+|6
+|bun, repl.it app, JS/TS
+|===
+
 == 2021
 
 My first AoC. I want to use these fun little riddles to try out programming
