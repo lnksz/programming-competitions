@@ -1,7 +1,25 @@
 = Advent of Code
+:stem: asciimath
 :toc:
 
 My solutions to the AoC tasks, with focus on exploration and fun.
+
+[cols="1,1,1"]
+|===
+|Year | Solved Days | Keywords
+
+|2021
+|3
+|rust, awk, conan, fmt, asciidoctor
+
+|2022
+|7.5
+|awk, unix commands, python
+
+|2023
+|6
+|bun, repl.it app, JS/TS
+|===
 
 == 2021
 
@@ -154,7 +172,7 @@ Still this was a nice challange for the terminal.
 ==== Python makes me happy
 
 First the `Counter` class came into my mind,
-but when searched for aa method to calculate 
+but when searched for aa method to calculate
 the intersection of Counters,
 I came accross the feature of the
 `set`, which fantastically supports
@@ -213,3 +231,178 @@ implementation can always fall back to the iterators, which are used in `<algori
 and `<numeric>`.
 
 https://godbolt.org/z/szEMdzhMG
+
+== 2023
+
+This year I dived into JS/TS with bun. Next to the language and the bun, I was
+very impressed with the mobile version of repl.it! It made it possible to try out
+bun on the go, and compared to last year's browser experience, the app (with
+the integrated keyboard extension line) was a real enabler!
+
+=== Day 1.
+
+I happen to find myself on the front-end after nearly 10 years again
+and a lot has changed there. So let's use some of the AoC tasks to
+refresh/learn some TS/JS!
+E.g. I was used to the "require()" based imports and had to look up
+why sometimes I still see that and why not just use imports.
+Now I've read up on CJS vs ESM... yup back to JS-land...
+Also I wanted to try out bun for a while, so this is also a great
+excuse to do so :)
+
+Bun feels really, really fast, and the error descriptions are nearly as good as
+the ones I am used to with Python.
+But also, e.g. the `file.readLines()` from node is of course not awailable...
+
+[source,bash]
+----
+bun run main.ts
+----
+
+And there is even a nice, built-in watch mode which works for simple files as well!
+
+[source,bash]
+----
+bun --watch run main.ts
+----
+
+At the second part the overlapping case like `eightwo` had me thinking, because I
+expected understood the description so that the result should be 88 instead of 82.
+But after trying out the result from the "overlapping" solution, I see it wasn't
+meant like that :-). Strange, I thought I could solve that with regex as well, but
+with look-ahead and look-behind I couldn't get it to work.
+
+=== Day 2.
+
+After setting up Bun and warmin up with JS regex methods, and with the nice
+`strtoul` kind of behaviour of `parseInt` this was rather straight forward.
+
+=== Day 3.
+
+I was thinking about whether to look around the numbers or the stars. Looking around
+the stars seemed cleverer, but I didn't want to deal with the possible double counting,
+and reconstructing numbers on the same line from e.g. a middle digit. So searched around
+the numbers.
+
+When looking at the methods of the `Array` class, I was suprised to see `copyWithin`,
+but the name is a bit missleading, as it works more like `memmove` than `memcpy`.
+So I ended up duplicating the first and last rows with `unshift` and `push`.
+`matchAll` with the match meta-info was the main tool then for the solution for part B.
+
+=== Day 4.
+
+Quite straight forward. Now I used JS's `Set` and `Map` for the first time.
+Map was a surprise, because of the `{}` Object. But I can see how Map could be useful
+for really using only a map, and not be surprised by the prototype methods of Object.
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#objects_vs._maps
+
+`.map(Number)` was a nice surprise, I stumbled upon it and cannot understand why I didn't thought about it before.
+
+`for (const [card, wins] of winMap)` was also new. a bit of a mouthful, but ok.
+
+The B part's solution is ugly, would be nice to revisit it for a clean-up.
+
+=== Day 5.
+
+From this day on I started to reuse the same repl.it project, so I don't need to
+bootstrap each time from the template.
+
+I started using bun's test runner with a modified `.replit` `run` command:
+
+[source,ini]
+----
+run = bun test ./d5.test.ts
+----
+
+This is great, because like this I can just hit the "run/play" button in the app,
+and have the tests run. Then only need to modify the test to run when mofing to a new day.
+
+The solution itself wasn't qreat, and part B actually failed to scale with the
+brute force solution.
+
+I was thinking about an inverse (from soil to seed) solution, but it didn't click.
+So what I did for part B was to use the hunch that the interesting intervals are
+between breaks in the functions, and that the function segments are monoton increasing.
+So to find minimums, I just needed to look around the breaks. Still, the "around"
+was surprising, because without a +-1 around the breaks, the minimum wasn't reached.
+
+Here also some cleanup would be nice, esp. using recursion instead of repetition.
+
+Takeaways:
+- Custom sorters
+- No built-in binary search???
+- `flat()` is pretty useful
+- Would be nice to have a debugger in repl.it app. Now `console.log` was my friend.
+- First generator functions in JS
+
+=== Day 6.
+
+This was by far my favorite day!
+I've always liked functional analysis, and this was a nice remider that I once
+studied math... :)
+
+So, if T is the duration of the race, and `a` is the duration of "charging", then
+"a" also describes the slope of the distance function.
+So all strategy can be described as:
+
+[stem]
+++++
+S(t) = 0, for t < a
+S(t) = at - a^2, for a <= t < T
+++++
+
+For a given T, the different strategies are a function of the `a` parameter.
+
+[stem]
+++++
+S(a) = -a^2 + aT
+++++
+
+Which is an inverted, and shifted parabola.
+The maximum lies at where the derivative is 0, so at `a = T/2`.
+
+[stem]
+++++
+S'(a) = -2a + T = 0
+a = T/2
+++++
+
+So the winning strategies can be summed up as the range around the maximum which,
+is greater than the previous record.
+
+[stem]
+++++
+S(a) = -a^2 + aT > S_{record}
+a^2 - aT + S_{record} = 0
+a = \frac{T \pm \sqrt{T^2 - 4S_{record}}}{2}
+++++
+
+----
+distance
+ ▲
+ │                  /
+ │_________________/
+ │       Sa       /|
+ │               / |
+ │              /  |
+ │             /   |
+ │     a      /    |
+ │===========x─────|─────▶ time
+ │          /      T
+ │         /
+ │        /
+ │       /
+ │      /
+ │     /
+ │    /
+ │   /
+ │  /
+ │ /
+ │/
+ -a^2
+----
+
+It was a special joy, to see my brother visualize the task with Godot :)
+
+I also started to factor out utils into lib.ts.
