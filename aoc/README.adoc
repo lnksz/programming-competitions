@@ -375,9 +375,9 @@ is greater than the previous record.
 
 [stem]
 ++++
-S(a) = -a^2 + aT > S_{record}\
-a^2 - aT + S_{record} = 0\
-a = \frac{T \pm \sqrt{T^2 - 4S_{record}}}{2}
+S(a) = -a^2 + aT > S_{rec}\
+a^2 - aT + S_{rec} = 0\
+a = \frac{T \pm \sqrt{T^2 - 4S_{rec}}}{2}
 ++++
 
 ----
