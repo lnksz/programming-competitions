@@ -9,6 +9,7 @@ As repl.it shortened their limits in the free tier, I will try out some new mobi
 # Task 1
 
 awk again... I still like `paste`, found during a past AoC.
+Learned about named pipes `<()`.
 
 ```
 bash t1.sh 01
