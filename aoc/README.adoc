@@ -440,3 +440,15 @@ time bash t2o.sh 01
 ```
 
 This is a kinda nice bash only decomposition from a space separated array on a variable: `read i p <<<$L`
+
+=== Day 2. - Kotlin
+
+Wow, termux is great! Slow but great! Vim works nicely on the phone.
+Even kotlin could be installed via apt!
+Then I can run Kotlin scripts with 
+
+```
+kotlinc -script m.kts
+```
+
+https://kotlinlang.org/docs/command-line.html#run-scripts
