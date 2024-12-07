@@ -452,3 +452,12 @@ kotlinc -script m.kts
 ```
 
 https://kotlinlang.org/docs/command-line.html#run-scripts
+
+Still, it runs very slow on tetmux, so I stick for now to the IDE app and copy and commit through chrome (codespace).
+
+Was happy to find `chunked` but was I was actually looking for `windowed` ...
+
+I avoided abs due to line length and fun...
+I like dir for general +- determination.
+
+For the second part I first tried to use a window with size 3, but the edge cases take out the fun. So went with the brute force variant generation. (Tried out generics.)
