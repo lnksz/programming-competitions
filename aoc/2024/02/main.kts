@@ -56,11 +56,7 @@ fun d02_2(f: String): Int {
     return lines.count { isSafeishLine(it) }
 }
 
-fun main() {
-    try {
-        println(d02_1("input").toString())
-        println(d02_2("innput").toString())
-    } catch (ex: Exception) {
-        println("error: ${ex.message}")
-    }
-}
+
+println(d02_1("input"))
+println(d02_2("input"))
+
