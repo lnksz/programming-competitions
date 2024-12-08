@@ -461,3 +461,100 @@ I avoided abs due to line length and fun...
 I like dir for general +- determination.
 
 For the second part I first tried to use a window with size 3, but the edge cases take out the fun. So went with the brute force variant generation. (Tried out generics.)
+
+=== Day 3. - Regexes
+
+
+=== Day 4. - Kotlin is growing on me
+
+I have started to like which felt like
+quirks in the language. (trailing lambdas, listOf, ??, !!, ?:)
+
+It impresses me, how many batteries are included in this languaue.
+Functions for which I have to reach for
+`itertools` and `more-itertools` in Python,
+those are well integrated with the data structures.
+
+Task 1.
+
+I have been doing 1 table many directions 
+searches in the past. (There is always something 
+like this in AoC?)
+Now I have let go of the embedded background,
+and didn't spare on memory...
+So did 1 search many tables.
+I transformed the columns and diagonals
+into row and used the same simple search.
+
+Even with the input file, this run without any problems
+with the real input.
+
+Was fun.
+
+Here a debug output of the sample:
+
+```
+MMMSXXMASM
+MSAMXMSMSA
+AMXSXMAAMM
+MSAMASMSMX
+XMASAMXAMM
+XXAMMXXAMA
+SMSMSASXSS
+SAXAMASAAA
+MAMMMXMMMM
+MXMXAXMASX
+[1, 1, 0, 0, 2, 0, 0, 0, 0, 1]
+MMAMXXSSMM
+MSMSMXMAAX
+MAXAAASXMM
+SMSMSMMAMX
+XXXAAMSMMA
+XMMSMXAAXX
+MSAMXXSSMM
+AMASAAXAMA
+SSMMMMSAMS
+MAMXMASAMX
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 2]
+M_________
+MM________
+MSA_______
+SAMM______
+XMXSX_____
+XXSAMX____
+MMXMAXS___
+ASMASAMS__
+SMASAMSAM_
+MSAMMMMXAM
+_AMSXXSAMX
+__MMAXAMMM
+___XMASAMX
+____MMXSXA
+_____ASAMX
+______SAMM
+_______AMA
+________MS
+_________X
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 0, 1, 0, 0, 0, 0]
+_________M
+________MX
+_______SAM
+______SAMX
+_____XMXMA
+____XXSAMX
+___MMAMMXM
+__ASAMSAMA
+_MMASMASMS
+MSXMAXSAMX
+MASAMXXAM_
+MMXSXASA__
+SXMMAMS___
+XMASMA____
+XSAMM_____
+MMMX______
+ASM_______
+SA________
+M_________
+[0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0]
+18
+```
