@@ -96,10 +96,46 @@ fun d04_1(f: String): Int {
     return countXmas(m)
 }
 
+fun hasMas(s: String): Boolean {
+    return s == "MAS" || s == "SAM"
+}
+
+fun hasMasX(cm: Array<CharArray>, r: Int, c: Int): Boolean {
+    var d1 = ""
+    var d2 = ""
+    for (i in 0..2) {
+        d1 += cm[r + i][c + i]
+        d2 += cm[r + (2 - i)][c + i]
+    }
+    return hasMas(d1) && hasMas(d2)
+}
+
+fun countMasX(m: List<String>): Int {
+    //m.forEach { println(it) }
+    val cm = stringsToCharMatrix(m)
+    val nrow = cm.size
+    val ncol = cm[0].size
+    var nmas = 0
+
+    for (rid in 1 until nrow - 1) {
+        for (cid in 1 until ncol - 1) {
+            if (cm[rid][cid] == 'A' && hasMasX(cm, rid - 1, cid - 1)) {
+                nmas++
+            }
+        }
+    }
+    return nmas
+}
+
+fun d04_2(f: String): Int {
+    val m = File(f).readLines()
+    return countMasX(m)
+}
+
 fun main() {
     try {
         println(d04_1("input"))
-        //println(d04_2("input"))
+        println(d04_2("input"))
     } catch (ex: Exception) {
         println("error: ${ex.message}")
     }

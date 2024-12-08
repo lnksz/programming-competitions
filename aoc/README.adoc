@@ -559,3 +559,10 @@ M_________
 [0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0]
 18
 ```
+
+Task 2.
+
+I guess I won't get away without a multi directiom search...
+
+But this was quite enjoyable!
+
