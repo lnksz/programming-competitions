@@ -464,6 +464,7 @@ For the second part I first tried to use a window with size 3, but the edge case
 
 === Day 3. - Regexes
 
+Not much to say about this one. `return@fun` surprised me, but ok.
 
 === Day 4. - Kotlin is growing on me
 
