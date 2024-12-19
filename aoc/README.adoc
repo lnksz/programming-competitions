@@ -566,3 +566,21 @@ I guess I won't get away without a multi directiom search...
 
 But this was quite enjoyable!
 
+=== Day 5.
+Part one was pretty straightforward with
+Sets. Here also pretty nice how easy it is
+to convert from one type of collection to another.
+
+Between part one and part two, I had an
+intense delivery period and a stomach sickness.
+But had thought time to time about part 2.
+
+To be frank, when I thought about it,
+doing the correction wasn't that much fun.
+I was considering, identifing the first bad pair,
+and checking the ones in-between, so that
+when we swap the order of the bad pair,
+we can be sure that we didn't create a new bad pair.
+
+But instead I have just tried simple swapping,
+and recursion... Worked.
