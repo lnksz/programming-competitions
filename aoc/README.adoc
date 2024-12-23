@@ -584,3 +584,50 @@ we can be sure that we didn't create a new bad pair.
 
 But instead I have just tried simple swapping,
 and recursion... Worked.
+
+=== Day 6.
+
+The first part was quite straightforward,
+with parsing the obstacles into a set of points,
+then looping over the steps of the guard and
+storing the coordinates of the visited places 8n
+a Set.
+
+With part two, I had two "blockages".
+One was how to actually detect loops.
+Started to think about transforming the
+map/path into actual graphs and do proper
+graph loop detection. But that felt,
+something too tedious to do on the phone.
+The insight was, to store the vector of the
+visited tiles (direction next to coordinates).
+This was a nice reminder that I once studied 
+electrical engineering and dealt with vector
+fields... ☺️ I liked that.
+Anyway the other part of the insight is that,
+the movement of the guard is deterministic,
+so once it visits a position with the same direction,
+it actually starts to loop.
+
+With that this should have been straightforward...
+But I was stuck because I had a bug in
+the step function, where in case of a faced
+obstacle, I didn't just turn the guard, but
+also advanced it. This was a micro optimisation,
+in the first part, where the position doesn't 
+change by the turn, so it isn't generating a new information.
+I overlooked this one, when I moved to vector based
+visitors.
+Another premature optimisation that bit me,
+was remembering the visited vectors, and starting
+the simulation, because I thought, it is just excess
+calculation due to the determism of the path of the guard.
+What I missed, is that I've accepted new obstacles 
+on the past path, so counted loops, which never 
+come to existence.
+
+Anyway, first day with data classes and extension functions.
+
+This is the first solution, which takes more
+than a minute to terminate on my phone!
+In codespaces it takes around 10-15s.
