@@ -631,3 +631,16 @@ Anyway, first day with data classes and extension functions.
 This is the first solution, which takes more
 than a minute to terminate on my phone!
 In codespaces it takes around 10-15s.
+
+=== Day 7.
+
+This was a rather straightforward day.
+Felt good that between part one and two only
+effectively one line had to be added.
+Also first time the Int limit was reached.
+I went again for not caring about memory and just
+calculating all the possible variants.
+Still amazing that this just runs "immediately"
+on my phone :O.
+Even with using int to string to int concatenation,
+instead of multiplying by 10^n.
