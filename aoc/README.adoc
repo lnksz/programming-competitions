@@ -644,3 +644,13 @@ Still amazing that this just runs "immediately"
 on my phone :O.
 Even with using int to string to int concatenation,
 instead of multiplying by 10^n.
+
+=== Day 8.
+
+Another maze, so I could 
+reuse quite some parts from Day 6.
+Combined with some coordinate geometry,
+nice recipe for fun!
+I start really liking Kotlin for these
+puzzles. Maybe the best overall experience 
+since I have started AoC!
