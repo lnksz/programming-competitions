@@ -654,3 +654,25 @@ nice recipe for fun!
 I start really liking Kotlin for these
 puzzles. Maybe the best overall experience 
 since I have started AoC!
+
+=== Day 9.
+
+`digitToInt()`...
+first I called `toInt()` on a Char,
+which returns its ASCII code.
+But of course there is a built in
+method to do this right.
+Chunked was pretty useful again for
+parsing.
+It is pretty cool that even built in
+types like List can be extended!
+`lastIndex downTo 0` was an interesting 
+way to do a reverse pass in `lastIndexOfAny`.
+
+I am not super happy with the part 2 solution,
+because I was thinking the whole time, these are
+rotates, but I am swapping back and forth.
+Still, learned about `addAll` and how to do
+Python's `[x for x in range(n)]`.
+Also swapping with `.also` felt strange first,
+but now that I know it, it is quite expressive.
