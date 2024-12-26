@@ -676,3 +676,36 @@ Still, learned about `addAll` and how to do
 Python's `[x for x in range(n)]`.
 Also swapping with `.also` felt strange first,
 but now that I know it, it is quite expressive.
+
+=== Day 10.
+
+I wanted to use this day to explore into concurrent
+programming in Kotlin/Java.
+But the solution was so quick, I didn't have
+quite the motivation. Still, pretty cool that Java/Kotlin
+come with built-in concurrent collections, threads and
+executors :O
+
+Also I tried out sub-Imt support.
+There are Short and Byte... But
+converting back to Int for most of
+the comparisons... Ugh not worth it.
+
+```
+Part 1 - sample
+Init 22:37:26.859
+Fini 22:37:26.866
+36
+Part 1 - input
+Init 22:37:26.896
+Fini 22:37:26.905
+501
+Part 2 - sample
+Init 22:37:26.908
+Fini 22:37:26.911
+81
+Part 2 - input
+Init 22:37:26.918
+Fini 22:37:26.935
+1017
+```
