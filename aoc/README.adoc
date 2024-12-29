@@ -709,3 +709,70 @@ Init 22:37:26.918
 Fini 22:37:26.935
 1017
 ```
+
+
+=== Day 11.
+
+sum()... Why didn't I found this before?
+So many folds before I felt, that this is strange 
+that such a batteries included language should 
+not have this!
+It even has sumOf()...
+
+I really liked this task!
+Simple rules, simple input,
+still hits an out of memory error
+for part 2!
+
+First I went down the rabbit hole
+of curve fitting, because with a given
+seed (start numbers) and the simple
+rules I thought the serie of the stone
+count can be described or at least estimated 
+by a function. I was surprised how far
+Sonnet 3.5 got with this. (Through a Python 
+script) here after some prompt iteration,
+only by the first 35 f(x)=y.
+
+```
+y = 8.322940772696876 * e^(0.434847277163989x)
+
+With an error range of ±0.8, 
+which meets your requirement of ±1 
+precision at x=7
+```
+
+I have also tried Wolfram Alpha,
+but the free "prompt" lentgh is limited 
+to 1200 chars, so not all 35 points
+could be entered.
+
+Anyway, the results were not right
+so I was going back to programming.
+I wrote out some steps on paper,
+and had the idea of caching subtrees,
+because I have seen that several numbers
+reappear. But was still not seeing
+how I could have enough memory efficiency.
+This is where I turned to the "Kotlin by JetBrains"
+channel, where they solve the AoC in Kotlin.
+There a depth-first-search with memorization
+and a compacting solution was presented.
+I really like the compacting one!
+But as I already wrote a recursive solution,
+I wanted to fix it up. Esp. because I didn't
+get how memoization could help, because 
+that requires even more RAM.
+The key was DFS, because if we calculate 
+down the tree, then only 75 deep
+paths are handled, which then turns the
+problem into CPU bound problem, and that is
+where memoization can give a boost (wink repeating subtrees 
+from above).
+
+Turns out the Sonnet's estimate was off
+by an order of magnitude...
+1222074273065623 - fitted
+ 240884656550923 - exact
+
+ 
