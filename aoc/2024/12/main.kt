@@ -8,15 +8,92 @@ typealias Veg = Char
 data class Point(
     val x: Int,
     val y: Int,
-)
+) {
+    fun around(): List<Point> {
+        return listOf(x, x, x-1, x+1).zip(
+               listOf(y-1, y+1, y, y)
+        ).map {
+            Point(it.first, it.second)
+        }
+    }
+}
 
 data class GPlot(
     val p: Point,
     val v: Veg,
 )
 
+data class Fence(
+    val inside: Point,
+    val outside: Point,
+) {
+    fun isHorizontal(): Boolean {
+        return inside.x == outside.x
+    }
+    fun isVertical(): Boolean {
+        return !isHorizontal()
+    }
+    fun attaches(o: Fence): Boolean {
+        val dxi = Math.abs(inside.x - o.inside.x)
+        val dyi = Math.abs(inside.y - o.inside.y)
+        val dxo = Math.abs(outside.x - o.outside.x)
+        val dyo = Math.abs(outside.y - o.outside.y)
+        if (isHorizontal() &&
+            o.isHorizontal() &&
+            (dxi == 1) &&
+            (dxo == 1) &&
+            (dyi == 0) &&
+            (dyo == 0)) {
+            return true
+        } else if (isVertical() &&
+            o.isVertical() &&
+            (dxi == 0) &&
+            (dxo == 0) &&
+            (dyi == 1) &&
+            (dyo == 1)) {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
 typealias MutGRange = MutableSet<GPlot>
+
 typealias GRange = Set<GPlot>
+
+fun GRange.print(fcs: List<Fence> = emptyList()) {
+    val lhis = this.toList()
+    val v = lhis[0].v
+    val ps = this.map {
+      it.p
+    }.toSet()
+    val fs = fcs.flatMap {
+        listOf(it.inside, it.outside)
+    }.toSet()
+    val allPoints = ps.toList() + fs.toList()
+    val xlo = allPoints.minOf {it.x}
+    val xhi = allPoints.maxOf {it.x}
+    val ylo = allPoints.minOf {it.y}
+    val yhi = allPoints.maxOf {it.y}
+    
+    println("Range of $v")
+    println("x=$xlo..$xhi y=$ylo..$yhi")
+    for (y in ylo..yhi) {
+        for (x in xlo..xhi) {
+            val p = Point(x, y)
+            if (p in ps) {
+                print(v)
+            } else if (p in fs) {
+                print('f')
+            } else {
+                print('.')
+            }
+        }
+        println()
+    }
+}
+
 
 fun GRange.getPerim(nhs: Map<GPlot, List<GPlot>>): Int {
     var perim = this.size * 4
@@ -32,36 +109,57 @@ fun GRange.getCost1(nhs: Map<GPlot, List<GPlot>>): Int {
 }
 
 fun GRange.getPerim2(nhs: Map<GPlot, List<GPlot>>): Int {
-    var perim = this.filter {
-        nhs.get(it)!!.size != 4
+    val border = this.filter { nhs.get(it)!!.size != 4 }
+    var fences = mutableListOf<Fence>()
+    for (gp in border) {
+        val (x, y) = gp.p
+        val ns = nhs.get(gp)!!.map {
+            it.p
+        }.toSet()
+        for (p in gp.p.around()) {
+            if (p !in ns) {
+                fences.add(Fence(gp.p, p))
+            }
+        }
     }
-    
-    return 42
+    var perim = fences.size
+    val dupli = mutableSetOf<Fence>()
+    var edges = 0
+    for (f in fences.sortedWith(compareBy({it.inside.y}, {it.inside.x}))) {
+        val ns = fences.filter {f.attaches(it)}
+        //println("@ $f")
+        //ns.forEach{println(it)}
+        dupli.addAll(ns)
+        if (f !in dupli) {
+            edges++
+            //println("> $f")
+        }
+    }
+    //this.print(fences)
+    //println("s: ${this.size} p: $perim e: $edges")
+    return edges
 }
 
 fun GRange.getCost2(nhs: Map<GPlot, List<GPlot>>): Int {
     return this.size * this.getPerim2(nhs)
 }
-    
 
 typealias Matrix = List<List<Veg>>
+
 fun Matrix.getNeighs(n: GPlot): List<GPlot> {
     val xlim = this[0].size - 1
     val ylim = this.size - 1
     val x = n.p.x
     val y = n.p.y
     return listOf(
-        Point(x-1, y),
-        Point(x+1, y),
-        Point(x, y-1),
-        Point(x, y+1),
-    ).filter {
-        it.x in 0..xlim && it.y in 0..ylim
-    }.map {
-        GPlot(it, this[it.y][it.x])
-    }.filter {
-        it.v == n.v
-    }
+            Point(x - 1, y),
+            Point(x + 1, y),
+            Point(x, y - 1),
+            Point(x, y + 1),
+        )
+        .filter { it.x in 0..xlim && it.y in 0..ylim }
+        .map { GPlot(it, this[it.y][it.x]) }
+        .filter { it.v == n.v }
 }
 
 data class Garden(
@@ -70,50 +168,47 @@ data class Garden(
     val gps: List<GPlot>,
     val veggies: List<Veg>,
     var todos: MutableList<GPlot>,
+    // neighbors of same type
     val nhbors: Map<GPlot, List<GPlot>>,
     var ranges: Map<Veg, MutableList<MutGRange>>,
 ) {
     fun print() {
         gps.chunked(ylim) { row ->
-        	row.forEach {print(it.v)}
+            row.forEach { print(it.v) }
             println()
         }
         println(veggies)
-        //printNBors()
+        // printNBors()
         printRanges()
     }
-    
+
     fun printNBors() {
         for ((n, ns) in nhbors) {
             println(n)
-            ns.forEach {
-                println("  $it")
-            }
+            ns.forEach { println("  $it") }
         }
     }
-    
+
     fun printRanges() {
         for ((k, rs) in ranges) {
             println(k)
-            rs.forEach {
-                println("${it.size} $it")
-            }
+            rs.forEach { println("${it.size} $it") }
         }
     }
-    
+
     fun createRange(gp: GPlot): MutGRange {
         var r = ranges.get(gp.v)!!
         var s = mutableSetOf<GPlot>(gp)
         r.add(s)
         return s
     }
-    
+
     fun addNeighs(nhs: List<GPlot>) {
         for (n in nhs) {
             addToRange(n)
         }
     }
-    
+
     fun addToRange(gp: GPlot) {
         if (gp !in todos) {
             return
@@ -131,7 +226,7 @@ data class Garden(
         createRange(gp)
         addNeighs(nhs)
     }
-    
+
     fun calcRanges() {
         for (gp in gps) {
             if (gp in todos) {
@@ -139,7 +234,7 @@ data class Garden(
             }
         }
     }
-    
+
     fun calcCost1(): Int {
         var cost = 0
         for ((_, rs) in ranges) {
@@ -149,7 +244,7 @@ data class Garden(
         }
         return cost
     }
-    
+
     fun calcCost2(): Int {
         var cost = 0
         for ((_, rs) in ranges) {
@@ -166,25 +261,23 @@ fun parseInput(lines: List<String>): Garden {
     val GPS = mutableListOf<GPlot>()
     var M = mutableListOf<List<Veg>>()
     lines.forEachIndexed { y, l ->
-    	var row = mutableListOf<Veg>()
-        l.forEachIndexed { x, c -> 
-        	sorts.add(c)
+        var row = mutableListOf<Veg>()
+        l.forEachIndexed { x, c ->
+            sorts.add(c)
             row.add(c)
             GPS.add(GPlot(Point(x, y), c))
         }
         M.add(row)
     }
-    
+
     var nhbors = mutableMapOf<GPlot, List<GPlot>>()
     GPS.forEach { nhbors[it] = M.getNeighs(it) }
     var todos = GPS.toMutableList()
-    
+
     val veggies = sorts.sorted().toList()
     var ranges = mutableMapOf<Veg, MutableList<MutableSet<GPlot>>>()
-    veggies.forEach {
-        ranges[it] = mutableListOf<MutableSet<GPlot>>()
-    }
-    
+    veggies.forEach { ranges[it] = mutableListOf<MutableSet<GPlot>>() }
+
     return Garden(
         lines[0].length,
         lines.size,
@@ -196,7 +289,6 @@ fun parseInput(lines: List<String>): Garden {
     )
 }
 
-
 fun part1(f: String): Int {
     println("Part 1 - $f")
     val G = parseInput(File(f).readLines())
@@ -204,7 +296,7 @@ fun part1(f: String): Int {
     G.calcRanges()
     val res = G.calcCost1()
     println("Fini ${LocalTime.now()}")
-    //G.print()
+    // G.print()
     return res
 }
 
@@ -223,9 +315,19 @@ fun main() {
     try {
         println(part1("sample")) // 1930
         println(part1("input"))  // 1533644
-        //println(part2("sample"))
-        //println(part2("input"))
+        println(part2("sample")) // 1206
+        println(part2("input"))  // 936718
     } catch (ex: Exception) {
         println("error: ${ex.message}")
     }
 }
+
+
+
+
+
+
+
+
+
+
