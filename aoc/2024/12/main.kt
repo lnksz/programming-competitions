@@ -1,7 +1,11 @@
 package d12
 
 import java.io.File
-import java.time.LocalTime
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.Executors
+import java.util.concurrent.ConcurrentSkipListSet
 
 typealias Veg = Char
 
@@ -21,7 +25,18 @@ data class Point(
 data class GPlot(
     val p: Point,
     val v: Veg,
-)
+) : Comparable<GPlot> {
+    override fun compareTo(other: GPlot): Int {
+        // Define your comparison logic here
+        if (this.v != other.v) {
+            return this.v.compareTo(other.v)
+        } 
+        if (this.p.y != other.p.y) {
+            return this.p.y - other.p.y
+        }
+        return this.p.x - other.p.x
+    }
+}
 
 data class Fence(
     val inside: Point,
@@ -167,7 +182,8 @@ data class Garden(
     val ylim: Int,
     val gps: List<GPlot>,
     val veggies: List<Veg>,
-    var todos: MutableList<GPlot>,
+    //var todos: MutableList<GPlot>,
+    var todos: ConcurrentSkipListSet<GPlot>,
     // neighbors of same type
     val nhbors: Map<GPlot, List<GPlot>>,
     var ranges: Map<Veg, MutableList<MutGRange>>,
@@ -216,8 +232,9 @@ data class Garden(
         todos.remove(gp)
         val vegRanges = ranges.get(gp.v)!!
         val nhs = nhbors.get(gp)!!
+        val nhss = nhs.toSet()
         for (r in vegRanges) {
-            if (!nhs.toSet().intersect(r).isEmpty()) {
+            if (!nhss.intersect(r).isEmpty()) {
                 r.add(gp)
                 addNeighs(nhs)
                 return
@@ -226,23 +243,48 @@ data class Garden(
         createRange(gp)
         addNeighs(nhs)
     }
-
-    fun calcRanges() {
-        for (gp in gps) {
+    
+    fun calcRangesTask(gpl: List<GPlot>) {
+        for (gp in gpl) {
             if (gp in todos) {
                 addToRange(gp)
             }
         }
     }
 
-    fun calcCost1(): Int {
-        var cost = 0
-        for ((_, rs) in ranges) {
-            for (r in rs) {
-                cost += r.getCost1(nhbors)
+    fun calcRanges() {
+        val numCores = Runtime.getRuntime().availableProcessors()
+        val executor = Executors.newFixedThreadPool(numCores)
+        val vegPlots = gps.groupBy {it.v}
+        for ((veg, plts) in vegPlots) {
+            executor.submit {
+                calcRangesTask(plts)
             }
         }
-        return cost
+        executor.shutdown()
+        executor.awaitTermination(3, TimeUnit.SECONDS)
+    }
+    
+    fun calcCost1Task(ranges: List<GRange>): Int {
+        return ranges.map {
+            it.getCost1(nhbors)
+        }.sum()
+    }
+
+    fun calcCost1(): Int {
+        val numCores = Runtime.getRuntime().availableProcessors()
+        val executor = Executors.newFixedThreadPool(numCores)
+        val rngs = ranges.values.flatMap {it}.chunked(numCores)
+        val futures = rngs.map {
+            executor.submit<Int> {
+                calcCost1Task(it)
+            }
+        }
+        executor.shutdown()
+        executor.awaitTermination(2, TimeUnit.SECONDS)
+        return futures.map {
+            it.get()
+        }.sum()
     }
 
     fun calcCost2(): Int {
@@ -272,7 +314,9 @@ fun parseInput(lines: List<String>): Garden {
 
     var nhbors = mutableMapOf<GPlot, List<GPlot>>()
     GPS.forEach { nhbors[it] = M.getNeighs(it) }
-    var todos = GPS.toMutableList()
+    //var todos = GPS.toMutableList()
+    var todos = ConcurrentSkipListSet<GPlot>()
+    todos.addAll(GPS)
 
     val veggies = sorts.sorted().toList()
     var ranges = mutableMapOf<Veg, MutableList<MutableSet<GPlot>>>()
@@ -289,24 +333,35 @@ fun parseInput(lines: List<String>): Garden {
     )
 }
 
+fun log(message: String) {
+  val currentDateTime = LocalDateTime.now()
+  val formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS") 
+  val formattedTime = currentDateTime.format(formatter)
+  println("[$formattedTime] $message")
+}
+
+
 fun part1(f: String): Int {
-    println("Part 1 - $f")
+    log("Part 1 - $f")
     val G = parseInput(File(f).readLines())
-    println("Init ${LocalTime.now()}")
+    log("Rangify")
     G.calcRanges()
+    log("calcCost1")
     val res = G.calcCost1()
-    println("Fini ${LocalTime.now()}")
+    log("Finished")
     // G.print()
     return res
 }
 
+
 fun part2(f: String): Int {
-    println("Part 2 - $f")
+    log("Part 2 - $f")
     val G = parseInput(File(f).readLines())
-    println("Init ${LocalTime.now()}")
+    log("Rangify")
     G.calcRanges()
+    log("calcCost2")
     val res = G.calcCost2()
-    println("Fini ${LocalTime.now()}")
+    log("Finished")
     //G.print()
     return res
 }
@@ -322,12 +377,4 @@ fun main() {
     }
 }
 
-
-
-
-
-
-
-
-
-
+}

@@ -775,4 +775,192 @@ by an order of magnitude...
 1222074273065623 - fitted
  240884656550923 - exact
 
- 
+=== Day 12.
+
+Last day for me this year!
+Time to turn back to "real stuff".
+It has been great to steal some time
+here and there the last month to learn
+and have fun.
+This last day, I finally tried out concurrent 
+programming support. And I am seriously impressed!
+Baked in executor/thread-pool implementation,
+and concurrent data structures? Nice!
+I haven't been using Java much, and it
+felt often too verbose/repetitive.
+Also I used more Kotlin co-routines,
+because of the IO bound tasks at work.
+Really impressive, how easy it was to add,
+unoptimized multi-threading for CPU heavy
+tasks to profit from the 8 cores in my phone.
+I have realized with these tasks, that
+I quite enjoy Kotlin. At work it is more
+the Spring part of 5he equation which I didn't 
+like that much.
+
+Finally, it was great to have solve and
+forget tasks for these micro learnings.
+I wouldn't have time and energy for a side
+project, but with the forgetable tasks,
+I could learn stuff which I won't forget :)
+
+Here some range visualizations, as ASCII
+drawings make me somehow always happy ^^`
+
+----
+Range of C
+x=2..9 y=-1..7
+....ff..
+...fCCf.
+...fCCCf
+.ffCCff.
+fCCCf...
+.fCf....
+.fCCf...
+..fCf...
+...f....
+s: 14 p: 28 e: 22
+Range of C
+x=6..8 y=3..5
+.f.
+fCf
+.f.
+s: 1 p: 4 e: 4
+Range of E
+x=6..10 y=3..10
+...f.
+..fEf
+.fEEf
+.fEEf
+.fEEf
+fEEEf
+fEEEf
+.fff.
+s: 13 p: 18 e: 8
+Range of F
+x=6..10 y=-1..5
+..ff.
+.fFFf
+.ffFf
+fFFFf
+fFFFf
+.fFf.
+..f..
+s: 10 p: 18 e: 12
+Range of I
+x=3..6 y=-1..2
+.ff.
+fIIf
+fIIf
+.ff.
+s: 4 p: 8 e: 4
+Range of I
+x=0..6 y=4..10
+..f....
+.fIff..
+.fIIIf.
+fIIIIIf
+fIIIfIf
+.ffIff.
+...f...
+s: 14 p: 22 e: 16
+Range of J
+x=4..8 y=2..10
+..f..
+.fJf.
+fJJf.
+.fJJf
+.fJJf
+.fJJf
+.fJf.
+.fJf.
+..f..
+s: 11 p: 20 e: 12
+Range of M
+x=-1..3 y=6..10
+.f...
+fMf..
+fMff.
+fMMMf
+.fff.
+s: 5 p: 12 e: 6
+Range of R
+x=-1..5 y=-1..4
+.ffff..
+fRRRRf.
+fRRRRf.
+.ffRRRf
+..fRff.
+...f...
+s: 12 p: 18 e: 10
+Range of S
+x=3..6 y=7..10
+.f..
+fSf.
+fSSf
+.ff.
+s: 3 p: 8 e: 6
+Range of V
+x=-1..4 y=1..7
+.ff...
+fVVf..
+fVVff.
+fVVVVf
+fVVfVf
+fVVff.
+.ff...
+s: 13 p: 20 e: 10
+----
+
+And some timings before and after
+parallelizing the rangifying part:
+
+Before (ca. 5.5s):
+
+----
+[14:11:37.934] Part 1 - sample
+[14:11:37.936] Rangify
+[14:11:37.938] calcCost1
+[14:11:37.938] Finished
+1930
+[14:11:37.939] Part 1 - input
+[14:11:37.983] Rangify
+[14:11:40.757] calcCost1
+[14:11:40.762] Finished
+1533644
+[14:11:40.763] Part 2 - sample
+[14:11:40.763] Rangify
+[14:11:40.763] calcCost2
+[14:11:40.766] Finished
+1206
+[14:11:40.766] Part 2 - input
+[14:11:40.778] Rangify
+[14:11:43.328] calcCost2
+[14:11:43.405] Finished
+936718
+----
+
+After (ca 300ms):
+
+----
+[16:13:34.141] Part 1 - sample
+[16:13:34.146] Rangify
+[16:13:34.150] calcCost1
+[16:13:34.151] Finished
+1930
+[16:13:34.151] Part 1 - input
+[16:13:34.194] Rangify
+[16:13:34.265] calcCost1
+[16:13:34.272] Finished
+1533644
+[16:13:34.273] Part 2 - sample
+[16:13:34.273] Rangify
+[16:13:34.275] calcCost2
+[16:13:34.278] Finished
+1206
+[16:13:34.278] Part 2 - input
+[16:13:34.298] Rangify
+[16:13:34.359] calcCost2
+[16:13:34.431] Finished
+936718
+----
