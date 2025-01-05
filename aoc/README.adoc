@@ -19,6 +19,10 @@ My solutions to the AoC tasks, with focus on exploration and fun.
 |2023
 |6
 |bun, repl.it app, JS/TS
+
+|2024
+|
+|shell (bash, awk), Termux App, Kotlin offline compiler
 |===
 
 == 2021
@@ -408,3 +412,555 @@ distance
 It was a special joy, to see my brother visualize the task with Godot :)
 
 I also started to factor out utils into lib.ts.
+
+== 2024
+
+As repl.it shortened their limits in the free tier, I will try out some new mobile alternatives
+
+- Codespaces in chrome directly
+- Termux for Linux cmds (great!)
+- smart IDE offline Kotlin compiler app
+
+=== Day 1. - Shell (bash, awk)
+
+
+awk again... I still like `paste`, found during a past AoC.
+Learned about named pipes `<()`.
+
+```
+bash t1.sh 01
+```
+
+Interestingly the simple solution runs "faster" than the smarter one...
+Both take nearly 30s though...
+
+```
+time bash t2.sh 01
+time bash t2o.sh 01
+```
+
+This is a kinda nice bash only decomposition from a space separated array on a variable: `read i p <<<$L`
+
+=== Day 2. - Kotlin
+
+Wow, termux is great! Slow but great! Vim works nicely on the phone.
+Even kotlin could be installed via apt!
+Then I can run Kotlin scripts with 
+
+```
+kotlinc -script m.kts
+```
+
+https://kotlinlang.org/docs/command-line.html#run-scripts
+
+Still, it runs very slow on tetmux, so I stick for now to the IDE app and copy and commit through chrome (codespace).
+
+Was happy to find `chunked` but was I was actually looking for `windowed` ...
+
+I avoided abs due to line length and fun...
+I like dir for general +- determination.
+
+For the second part I first tried to use a window with size 3, but the edge cases take out the fun. So went with the brute force variant generation. (Tried out generics.)
+
+=== Day 3. - Regexes
+
+Not much to say about this one. `return@fun` surprised me, but ok.
+
+=== Day 4. - Kotlin is growing on me
+
+I have started to like which felt like
+quirks in the language. (trailing lambdas, listOf, ??, !!, ?:)
+
+It impresses me, how many batteries are included in this languaue.
+Functions for which I have to reach for
+`itertools` and `more-itertools` in Python,
+those are well integrated with the data structures.
+
+Task 1.
+
+I have been doing 1 table many directions 
+searches in the past. (There is always something 
+like this in AoC?)
+Now I have let go of the embedded background,
+and didn't spare on memory...
+So did 1 search many tables.
+I transformed the columns and diagonals
+into row and used the same simple search.
+
+Even with the input file, this run without any problems
+with the real input.
+
+Was fun.
+
+Here a debug output of the sample:
+
+```
+MMMSXXMASM
+MSAMXMSMSA
+AMXSXMAAMM
+MSAMASMSMX
+XMASAMXAMM
+XXAMMXXAMA
+SMSMSASXSS
+SAXAMASAAA
+MAMMMXMMMM
+MXMXAXMASX
+[1, 1, 0, 0, 2, 0, 0, 0, 0, 1]
+MMAMXXSSMM
+MSMSMXMAAX
+MAXAAASXMM
+SMSMSMMAMX
+XXXAAMSMMA
+XMMSMXAAXX
+MSAMXXSSMM
+AMASAAXAMA
+SSMMMMSAMS
+MAMXMASAMX
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 2]
+M_________
+MM________
+MSA_______
+SAMM______
+XMXSX_____
+XXSAMX____
+MMXMAXS___
+ASMASAMS__
+SMASAMSAM_
+MSAMMMMXAM
+_AMSXXSAMX
+__MMAXAMMM
+___XMASAMX
+____MMXSXA
+_____ASAMX
+______SAMM
+_______AMA
+________MS
+_________X
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 0, 1, 0, 0, 0, 0]
+_________M
+________MX
+_______SAM
+______SAMX
+_____XMXMA
+____XXSAMX
+___MMAMMXM
+__ASAMSAMA
+_MMASMASMS
+MSXMAXSAMX
+MASAMXXAM_
+MMXSXASA__
+SXMMAMS___
+XMASMA____
+XSAMM_____
+MMMX______
+ASM_______
+SA________
+M_________
+[0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0]
+18
+```
+
+Task 2.
+
+I guess I won't get away without a multi directiom search...
+
+But this was quite enjoyable!
+
+=== Day 5.
+Part one was pretty straightforward with
+Sets. Here also pretty nice how easy it is
+to convert from one type of collection to another.
+
+Between part one and part two, I had an
+intense delivery period and a stomach sickness.
+But had thought time to time about part 2.
+
+To be frank, when I thought about it,
+doing the correction wasn't that much fun.
+I was considering, identifing the first bad pair,
+and checking the ones in-between, so that
+when we swap the order of the bad pair,
+we can be sure that we didn't create a new bad pair.
+
+But instead I have just tried simple swapping,
+and recursion... Worked.
+
+=== Day 6.
+
+The first part was quite straightforward,
+with parsing the obstacles into a set of points,
+then looping over the steps of the guard and
+storing the coordinates of the visited places 8n
+a Set.
+
+With part two, I had two "blockages".
+One was how to actually detect loops.
+Started to think about transforming the
+map/path into actual graphs and do proper
+graph loop detection. But that felt,
+something too tedious to do on the phone.
+The insight was, to store the vector of the
+visited tiles (direction next to coordinates).
+This was a nice reminder that I once studied 
+electrical engineering and dealt with vector
+fields... ☺️ I liked that.
+Anyway the other part of the insight is that,
+the movement of the guard is deterministic,
+so once it visits a position with the same direction,
+it actually starts to loop.
+
+With that this should have been straightforward...
+But I was stuck because I had a bug in
+the step function, where in case of a faced
+obstacle, I didn't just turn the guard, but
+also advanced it. This was a micro optimisation,
+in the first part, where the position doesn't 
+change by the turn, so it isn't generating a new information.
+I overlooked this one, when I moved to vector based
+visitors.
+Another premature optimisation that bit me,
+was remembering the visited vectors, and starting
+the simulation, because I thought, it is just excess
+calculation due to the determism of the path of the guard.
+What I missed, is that I've accepted new obstacles 
+on the past path, so counted loops, which never 
+come to existence.
+
+Anyway, first day with data classes and extension functions.
+
+This is the first solution, which takes more
+than a minute to terminate on my phone!
+In codespaces it takes around 10-15s.
+
+=== Day 7.
+
+This was a rather straightforward day.
+Felt good that between part one and two only
+effectively one line had to be added.
+Also first time the Int limit was reached.
+I went again for not caring about memory and just
+calculating all the possible variants.
+Still amazing that this just runs "immediately"
+on my phone :O.
+Even with using int to string to int concatenation,
+instead of multiplying by 10^n.
+
+=== Day 8.
+
+Another maze, so I could 
+reuse quite some parts from Day 6.
+Combined with some coordinate geometry,
+nice recipe for fun!
+I start really liking Kotlin for these
+puzzles. Maybe the best overall experience 
+since I have started AoC!
+
+=== Day 9.
+
+`digitToInt()`...
+first I called `toInt()` on a Char,
+which returns its ASCII code.
+But of course there is a built in
+method to do this right.
+Chunked was pretty useful again for
+parsing.
+It is pretty cool that even built in
+types like List can be extended!
+`lastIndex downTo 0` was an interesting 
+way to do a reverse pass in `lastIndexOfAny`.
+
+I am not super happy with the part 2 solution,
+because I was thinking the whole time, these are
+rotates, but I am swapping back and forth.
+Still, learned about `addAll` and how to do
+Python's `[x for x in range(n)]`.
+Also swapping with `.also` felt strange first,
+but now that I know it, it is quite expressive.
+
+=== Day 10.
+
+I wanted to use this day to explore into concurrent
+programming in Kotlin/Java.
+But the solution was so quick, I didn't have
+quite the motivation. Still, pretty cool that Java/Kotlin
+come with built-in concurrent collections, threads and
+executors :O
+
+Also I tried out sub-Imt support.
+There are Short and Byte... But
+converting back to Int for most of
+the comparisons... Ugh not worth it.
+
+```
+Part 1 - sample
+Init 22:37:26.859
+Fini 22:37:26.866
+36
+Part 1 - input
+Init 22:37:26.896
+Fini 22:37:26.905
+501
+Part 2 - sample
+Init 22:37:26.908
+Fini 22:37:26.911
+81
+Part 2 - input
+Init 22:37:26.918
+Fini 22:37:26.935
+1017
+```
+
+
+=== Day 11.
+
+sum()... Why didn't I found this before?
+So many folds before I felt, that this is strange 
+that such a batteries included language should 
+not have this!
+It even has sumOf()...
+
+I really liked this task!
+Simple rules, simple input,
+still hits an out of memory error
+for part 2!
+
+First I went down the rabbit hole
+of curve fitting, because with a given
+seed (start numbers) and the simple
+rules I thought the serie of the stone
+count can be described or at least estimated 
+by a function. I was surprised how far
+Sonnet 3.5 got with this. (Through a Python 
+script) here after some prompt iteration,
+only by the first 35 f(x)=y.
+
+```
+y = 8.322940772696876 * e^(0.434847277163989x)
+
+With an error range of ±0.8, 
+which meets your requirement of ±1 
+precision at x=7
+```
+
+I have also tried Wolfram Alpha,
+but the free "prompt" lentgh is limited 
+to 1200 chars, so not all 35 points
+could be entered.
+
+Anyway, the results were not right
+so I was going back to programming.
+I wrote out some steps on paper,
+and had the idea of caching subtrees,
+because I have seen that several numbers
+reappear. But was still not seeing
+how I could have enough memory efficiency.
+This is where I turned to the "Kotlin by JetBrains"
+channel, where they solve the AoC in Kotlin.
+There a depth-first-search with memorization
+and a compacting solution was presented.
+I really like the compacting one!
+But as I already wrote a recursive solution,
+I wanted to fix it up. Esp. because I didn't
+get how memoization could help, because 
+that requires even more RAM.
+The key was DFS, because if we calculate 
+down the tree, then only 75 deep
+paths are handled, which then turns the
+problem into CPU bound problem, and that is
+where memoization can give a boost (wink repeating subtrees 
+from above).
+
+Turns out the Sonnet's estimate was off
+by an order of magnitude...
+1222074273065623 - fitted
+ 240884656550923 - exact
+
+=== Day 12.
+
+Last day for me this year!
+Time to turn back to "real stuff".
+It has been great to steal some time
+here and there the last month to learn
+and have fun.
+This last day, I finally tried out concurrent 
+programming support. And I am seriously impressed!
+Baked in executor/thread-pool implementation,
+and concurrent data structures? Nice!
+I haven't been using Java much, and it
+felt often too verbose/repetitive.
+Also I used more Kotlin co-routines,
+because of the IO bound tasks at work.
+Really impressive, how easy it was to add,
+unoptimized multi-threading for CPU heavy
+tasks to profit from the 8 cores in my phone.
+I have realized with these tasks, that
+I quite enjoy Kotlin. At work it is more
+the Spring part of 5he equation which I didn't 
+like that much.
+
+Finally, it was great to have solve and
+forget tasks for these micro learnings.
+I wouldn't have time and energy for a side
+project, but with the forgetable tasks,
+I could learn stuff which I won't forget :)
+
+Here some range visualizations, as ASCII
+drawings make me somehow always happy ^^`
+
+----
+Range of C
+x=2..9 y=-1..7
+....ff..
+...fCCf.
+...fCCCf
+.ffCCff.
+fCCCf...
+.fCf....
+.fCCf...
+..fCf...
+...f....
+s: 14 p: 28 e: 22
+Range of C
+x=6..8 y=3..5
+.f.
+fCf
+.f.
+s: 1 p: 4 e: 4
+Range of E
+x=6..10 y=3..10
+...f.
+..fEf
+.fEEf
+.fEEf
+.fEEf
+fEEEf
+fEEEf
+.fff.
+s: 13 p: 18 e: 8
+Range of F
+x=6..10 y=-1..5
+..ff.
+.fFFf
+.ffFf
+fFFFf
+fFFFf
+.fFf.
+..f..
+s: 10 p: 18 e: 12
+Range of I
+x=3..6 y=-1..2
+.ff.
+fIIf
+fIIf
+.ff.
+s: 4 p: 8 e: 4
+Range of I
+x=0..6 y=4..10
+..f....
+.fIff..
+.fIIIf.
+fIIIIIf
+fIIIfIf
+.ffIff.
+...f...
+s: 14 p: 22 e: 16
+Range of J
+x=4..8 y=2..10
+..f..
+.fJf.
+fJJf.
+.fJJf
+.fJJf
+.fJJf
+.fJf.
+.fJf.
+..f..
+s: 11 p: 20 e: 12
+Range of M
+x=-1..3 y=6..10
+.f...
+fMf..
+fMff.
+fMMMf
+.fff.
+s: 5 p: 12 e: 6
+Range of R
+x=-1..5 y=-1..4
+.ffff..
+fRRRRf.
+fRRRRf.
+.ffRRRf
+..fRff.
+...f...
+s: 12 p: 18 e: 10
+Range of S
+x=3..6 y=7..10
+.f..
+fSf.
+fSSf
+.ff.
+s: 3 p: 8 e: 6
+Range of V
+x=-1..4 y=1..7
+.ff...
+fVVf..
+fVVff.
+fVVVVf
+fVVfVf
+fVVff.
+.ff...
+s: 13 p: 20 e: 10
+----
+
+And some timings before and after
+parallelizing the rangifying part:
+
+Before (ca. 5.5s):
+
+----
+[14:11:37.934] Part 1 - sample
+[14:11:37.936] Rangify
+[14:11:37.938] calcCost1
+[14:11:37.938] Finished
+1930
+[14:11:37.939] Part 1 - input
+[14:11:37.983] Rangify
+[14:11:40.757] calcCost1
+[14:11:40.762] Finished
+1533644
+[14:11:40.763] Part 2 - sample
+[14:11:40.763] Rangify
+[14:11:40.763] calcCost2
+[14:11:40.766] Finished
+1206
+[14:11:40.766] Part 2 - input
+[14:11:40.778] Rangify
+[14:11:43.328] calcCost2
+[14:11:43.405] Finished
+936718
+----
+
+After (ca 300ms):
+
+----
+[16:13:34.141] Part 1 - sample
+[16:13:34.146] Rangify
+[16:13:34.150] calcCost1
+[16:13:34.151] Finished
+1930
+[16:13:34.151] Part 1 - input
+[16:13:34.194] Rangify
+[16:13:34.265] calcCost1
+[16:13:34.272] Finished
+1533644
+[16:13:34.273] Part 2 - sample
+[16:13:34.273] Rangify
+[16:13:34.275] calcCost2
+[16:13:34.278] Finished
+1206
+[16:13:34.278] Part 2 - input
+[16:13:34.298] Rangify
+[16:13:34.359] calcCost2
+[16:13:34.431] Finished
+936718
+----
