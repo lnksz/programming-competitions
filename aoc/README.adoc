@@ -16,6 +16,7 @@ My solutions to the AoC tasks, with focus on exploration and fun.
 |2022
 |7.5
 |awk, unix commands, python
+| 
 
 |2023
 |6
