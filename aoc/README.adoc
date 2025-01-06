@@ -6,11 +6,12 @@ My solutions to the AoC tasks, with focus on exploration and fun.
 
 [cols="1,1,1"]
 |===
-|Year | Solved Days | Keywords
+|Year | Solved Days | Languages | Tools
 
 |2021
 |3
-|rust, awk, conan, fmt, asciidoctor
+|rust, awk
+|conan, fmt, asciidoctor
 
 |2022
 |7.5
@@ -18,11 +19,13 @@ My solutions to the AoC tasks, with focus on exploration and fun.
 
 |2023
 |6
-|bun, repl.it app, JS/TS
+|bun, JS/TS
+|repl.it app
 
 |2024
 |12
-|shell (bash, awk) Kotlin, Termux App, Kotlin offline compiler IDE App
+|shell (bash, awk) Kotlin
+|Termux App, Kotlin offline compiler IDE App
 |===
 
 == 2021
