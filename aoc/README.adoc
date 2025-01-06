@@ -21,8 +21,8 @@ My solutions to the AoC tasks, with focus on exploration and fun.
 |bun, repl.it app, JS/TS
 
 |2024
-|
-|shell (bash, awk), Termux App, Kotlin offline compiler
+|12
+|shell (bash, awk) Kotlin, Termux App, Kotlin offline compiler IDE App
 |===
 
 == 2021
