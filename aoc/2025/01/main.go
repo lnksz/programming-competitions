@@ -14,6 +14,24 @@ func errcheck(err error) {
 	}
 }
 
+func zerosInside(a, z int) int {
+	if a == z {
+		return 0
+	}
+	step := 1
+	nzero := 0
+	if a > z {
+		step = -1
+	}
+	for p := a + step; p != z; p += step {
+		// fmt.Println(a,z, p)
+		if p % 100 == 0 {
+			nzero++
+		}
+	}
+	return nzero
+}
+
 func main() {
 	file, err := os.Open("input")
 	errcheck(err)
@@ -34,8 +52,10 @@ func main() {
 			rot *= -1
 		}
 
-		fmt.Printf("%s %d %d => %d\n", line, rot, pos, pos + rot)
-		pos += rot
+		nxt := pos + rot
+		nzero += zerosInside(pos, nxt)
+		fmt.Printf("%s %d %d => %d\n", line, rot, pos, nxt)
+		pos = nxt
 	}
 	fmt.Println(nzero)
 
