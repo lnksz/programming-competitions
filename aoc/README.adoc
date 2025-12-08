@@ -976,9 +976,24 @@ After (ca 300ms):
 
 == 2025
 
+This year again AoC gives me an opportunity to check the
+state of “mobile development,” i.e., how well I can
+actually write and run code on my Android phone while
+commuting.
+
+Last year's Termux was a pleasant surprise. Since then,
+the Terminal app from Google has dropped, so I will give
+that a go as well.
+
+I would like to focus on Go and Zig this year but will
+keep an open mind to explore.
+
+
 === Day 1. Zero Crossing Counting
 
-LOL, I excelled this. Because the whole flip over can be just solved by plus/minus and modulo.
+LOL, I excelled this. Because the whole flip over can be
+just solved by plus/minus and modulo.
+
 ----
 			50	
 R1	1	1	51	0
@@ -995,3 +1010,14 @@ With
 - `=RIGHT(A2,LEN(A2)-1)`
 - `=D1+B2*C2`
 - `=IF(MOD(D2,100)=0,1,0)`
+
+The second part wasn't rolling off my fingers though...
+So I reverted to Go.
+Fantastic, how easy it was to install Go in Termux.
+The Terminal app froze on me with "unrecoverable" error,
+after which it asked me to recover...
+So Termux it is.
+
+The Go solution for the second part is a brute force one,
+because I have tried so much wrong answeres with sheets,
+that I ended up with 10 minutes ban time between submissions ^^"
