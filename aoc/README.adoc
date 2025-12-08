@@ -1021,3 +1021,24 @@ So Termux it is.
 The Go solution for the second part is a brute force one,
 because I have tried so much wrong answeres with sheets,
 that I ended up with 10 minutes ban time between submissions ^^"
+
+I revisited this with a solution that uses a formula for
+counting the zero crossing inside the range.
+First I tried with the integer division, but then had to
+realise the difference between truncating and floor division.
+E.g. Python's `//` floors, but Go's integer `/` truncates.
+So in Python `-7 // 3` is `-3` whereas Go's `-7 / 3` is `-2`!
+Until now, I have thought about them as same.
+
+After commenting out logging, the difference in runtime could be benchmarked
+with hyperfine.
+
+----
+u0_a316@localhost ~/p/a/2/01 (aoc-2025)> hyperfine ./bf   Benchmark 1: ./brute
+  Time (mean ± σ):      18.8 ms ±   4.4 ms    [User: 9.0 ms, System: 10.0 ms]
+  Range (min … max):    11.5 ms …  32.9 ms    75 runs
+
+u0_a316@localhost ~/p/a/2/01 (aoc-2025)> hyperfine ./fr   Benchmark 1: ./form
+  Time (mean ± σ):      14.1 ms ±   4.3 ms    [User: 4.5 ms, System: 10.7 ms]
+  Range (min … max):     4.0 ms …  23.9 ms    95 runs
+----

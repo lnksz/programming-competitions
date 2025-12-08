@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"strconv"
 )
@@ -18,18 +19,11 @@ func zerosInside(a, z int) int {
 	if a == z {
 		return 0
 	}
-	step := 1
-	nzero := 0
-	if a > z {
-		step = -1
+	min, max := a, z
+	if min > max {
+		min, max = max, min
 	}
-	for p := a + step; p != z; p += step {
-		// fmt.Println(a,z, p)
-		if p % 100 == 0 {
-			nzero++
-		}
-	}
-	return nzero
+	return int(math.Floor(float64(max-1)/100.0) - math.Floor(float64(min)/100.0))
 }
 
 func main() {
