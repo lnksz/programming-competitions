@@ -1062,3 +1062,12 @@ For part B I didn't want to Pow-Log as it is a bit
 tedious, so I used the strings.Repeat based check.
 More heavy, but brief solution
 
+=== Day 3. Max Jolt
+
+After the holidays still some fun.
+Part 1. was a nice bruteforce to write as little
+aa possible.
+Part 2 with a hashmap to parse tge input number and
+the indices of its digits.
+All the test for both parts (incl. solution)
+run on my phone in 90 ms! :O
