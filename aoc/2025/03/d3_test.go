@@ -18,6 +18,11 @@ func TestMaxJolt(t *testing.T) {
 				t.Errorf("MaxJolt(%v) = %v, but want %v", tt.input, got, tt.want)
 			}
 		})
+		t.Run("MaxJolt2()", func(t *testing.T) {
+			if got := MaxJolt2(tt.input, 2); got != tt.want {
+				t.Errorf("MaxJolt2(%v, 2) = %v, but want %v", tt.input, got, tt.want)
+			}
+		})
 	}
 }
 
@@ -51,7 +56,7 @@ func TestMaxJolt2(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run("MaxJolt2()", func(t *testing.T) {
-			if got := MaxJolt2(tt.input); got != tt.want {
+			if got := MaxJolt2(tt.input, 12); got != tt.want {
 				t.Errorf("MaxJolt2(%v) = %v, but want %v", tt.input, got, tt.want)
 			}
 		})

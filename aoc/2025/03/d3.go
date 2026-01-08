@@ -59,7 +59,7 @@ func NextDigit(nums map[int][]int, from, to int) (int, int) {
 	return 0, 0
 }
 
-func MaxJolt2(s string) int {
+func MaxJolt2(s string, ndigs int) int {
 	l := len(s)
 	nums := map[int][]int {
 		0: {}, 1: {}, 2: {}, 3: {}, 4: {},
@@ -71,10 +71,9 @@ func MaxJolt2(s string) int {
 	}
 
 	r := 0
-	maxdigs := 12
 	fromidx := 0
-	for i := 1; i <= maxdigs; i++ {
-		toidx := l - (maxdigs - i)
+	for i := 1; i <= ndigs; i++ {
+		toidx := l - (ndigs - i)
 		ndi, nd := NextDigit(nums, fromidx, toidx)
 		fromidx = ndi + 1
 		r *= 10
@@ -89,7 +88,7 @@ func T2(f string) int {
 	scn := bufio.NewScanner(file)
 	sum := 0
 	for scn.Scan() {
-		sum += MaxJolt2(scn.Text())
+		sum += MaxJolt2(scn.Text(), 12)
 	}
 	fmt.Println(sum)
 	return sum
