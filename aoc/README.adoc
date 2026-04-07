@@ -973,3 +973,101 @@ After (ca 300ms):
 [16:13:34.431] Finished
 936718
 ----
+
+== 2025
+
+This year again AoC gives me an opportunity to check the
+state of “mobile development,” i.e., how well I can
+actually write and run code on my Android phone while
+commuting.
+
+Last year's Termux was a pleasant surprise. Since then,
+the Terminal app from Google has dropped, so I will give
+that a go as well.
+
+I would like to focus on Go and Zig this year but will
+keep an open mind to explore.
+
+
+=== Day 1. Zero Crossing Counting
+
+LOL, I excelled this. Because the whole flip over can be
+just solved by plus/minus and modulo.
+
+----
+			50	
+R1	1	1	51	0
+R25	1	25	76	0
+R50	1	50	126	0
+R10	1	10	136	0
+L20	-1	20	116	0
+L14	-1	14	102	0
+L26	-1	26	76	0
+L5	-1	5	71	0
+----
+With
+- `=IF(LEFT(A2,1)="R",1,-1)`
+- `=RIGHT(A2,LEN(A2)-1)`
+- `=D1+B2*C2`
+- `=IF(MOD(D2,100)=0,1,0)`
+
+The second part wasn't rolling off my fingers though...
+So I reverted to Go.
+Fantastic, how easy it was to install Go in Termux.
+The Terminal app froze on me with "unrecoverable" error,
+after which it asked me to recover...
+So Termux it is.
+
+The Go solution for the second part is a brute force one,
+because I have tried so much wrong answeres with sheets,
+that I ended up with 10 minutes ban time between submissions ^^"
+
+I revisited this with a solution that uses a formula for
+counting the zero crossing inside the range.
+First I tried with the integer division, but then had to
+realise the difference between truncating and floor division.
+E.g. Python's `//` floors, but Go's integer `/` truncates.
+So in Python `-7 // 3` is `-3` whereas Go's `-7 / 3` is `-2`!
+Until now, I have thought about them as same.
+
+After commenting out logging, the difference in runtime could be benchmarked
+with hyperfine.
+
+----
+u0_a316@localhost ~/p/a/2/01 (aoc-2025)> hyperfine ./bf   Benchmark 1: ./brute
+  Time (mean ± σ):      18.8 ms ±   4.4 ms    [User: 9.0 ms, System: 10.0 ms]
+  Range (min … max):    11.5 ms …  32.9 ms    75 runs
+
+u0_a316@localhost ~/p/a/2/01 (aoc-2025)> hyperfine ./fr   Benchmark 1: ./form
+  Time (mean ± σ):      14.1 ms ±   4.3 ms    [User: 4.5 ms, System: 10.7 ms]
+  Range (min … max):     4.0 ms …  23.9 ms    95 runs
+----
+
+=== Day 2. Number Patterns
+
+2025-2/a Go through test
+I took a different turn with this one!
+Insteaf of `go run` I used `go test`, writing
+library style. Makes me get familiar with the repeating
+package and with tests I need less printfs...
+
+Last year I used foe something similar string
+comparisons, now Pow/Log.
+Was quite nice to browse the Go standard lib
+Interesting, that there are Errf, FMA,
+Gamma, J1 etc. My EE soul was happy
+to see them, but I wonder how often they are used.
+
+For part B I didn't want to Pow-Log as it is a bit
+tedious, so I used the strings.Repeat based check.
+More heavy, but brief solution
+
+=== Day 3. Max Jolt
+
+After the holidays still some fun.
+Part 1. was a nice bruteforce to write as little
+aa possible.
+Part 2 with a hashmap to parse tge input number and
+the indices of its digits.
+All the test for both parts (incl. solution)
+run on my phone in 90 ms! :O
